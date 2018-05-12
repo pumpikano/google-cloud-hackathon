@@ -28,25 +28,11 @@ gcloud projects create ${PROJECT_ID} \
 # Link to billing account (this will not grant access to change or view billing)
 gcloud alpha billing projects link ${PROJECT_ID} --billing-account=${ACCOUNT_ID}
 
-# Get the IAM policy for the project
-IAM_DIR=/tmp/iams
-IAM_FILE=${IAM_DIR}/${PROJECT_ID}.iam.json
-mkdir -p ${IAM_DIR}
-gcloud projects get-iam-policy ${PROJECT_ID} --format=json > ${IAM_FILE}
-
-# Add each member to the policy as an Editor
+# Add project members
 shift
-while (( "$#" )); do
-  MEMBER="user:$1"
-  python ./add_bindings.py --input ${IAM_FILE} --role roles/editor --members ${MEMBER}
-  shift
-done
-
-# Update the policy
-gcloud projects set-iam-policy ${PROJECT_ID} ${IAM_FILE}
+./add_project_members.sh ${PROJECT_ID} "$@"
 
 # Project link
 echo "Created project ${PROJECT_ID} on billing account ${ACCOUNT_ID}."
-echo "Project IAM policy is here: ${IAM_FILE}"
 echo "Project Console URL: https://console.cloud.google.com/home/dashboard?project=${PROJECT_ID}"
 
