@@ -14,6 +14,9 @@ gcloud beta billing accounts list
 # Set the billing account id to link any projects subsequently created.
 export ACCOUNT_ID=<account-id>
 
+# Set an optional bucket to grant read access
+export SHARED_BUCKET=gs://<bucket>
+
 # Create a team project with a team name and one or more members.
 ./create_team_project.sh team1 foo@example.com bar@example.com
 
