@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USAGE="Usage: ./create_team_project.sh project_id user1@example.com user2@example.com ..."
+USAGE="Usage: ./add_project_members.sh project_id user1@example.com user2@example.com ..."
 if [ "$#" -lt 2 ]; then
   echo "$USAGE"
   exit 1

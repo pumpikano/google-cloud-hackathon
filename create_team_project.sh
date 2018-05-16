@@ -39,7 +39,7 @@ shift
 if [ -z ${SHARED_BUCKET+x} ]; then
   echo "SHARED_BUCKET is not set, so no bucket access will be granted."
 else
-  gsutil acl ch -p editors-${PROJECT_ID}:R ${SHARED_BUCKET}
+  gsutil -m acl ch -r -p editors-${PROJECT_ID}:R ${SHARED_BUCKET}
 fi
 
 # Create a team bucket
