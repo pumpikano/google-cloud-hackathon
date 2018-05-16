@@ -1,5 +1,8 @@
 #!/bin/bash
 
+BUCKET_LOCATION=us
+BUCKET_CLASS=multi_regional
+
 if [ -z ${ACCOUNT_ID+x} ]; then
   echo "ACCOUNT_ID must be set to a billing account id"
   exit 1
@@ -32,12 +35,15 @@ gcloud alpha billing projects link ${PROJECT_ID} --billing-account=${ACCOUNT_ID}
 shift
 ./add_project_members.sh ${PROJECT_ID} "$@"
 
-# Add read accessed to shared hackathon data
+# Add read access to shared hackathon data
 if [ -z ${SHARED_BUCKET+x} ]; then
   echo "SHARED_BUCKET is not set, so no bucket access will be granted."
 else
   gsutil acl ch -p editors-${PROJECT_ID}:R ${SHARED_BUCKET}
 fi
+
+# Create a team bucket
+gsutil mb -p ${PROJECT_ID} -c ${BUCKET_CLASS} -l ${BUCKET_LOCATION} gs://${PROJECT_ID}/
 
 # Project link
 echo "Created project ${PROJECT_ID} on billing account ${ACCOUNT_ID}."
