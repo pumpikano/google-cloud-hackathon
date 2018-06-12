@@ -3,6 +3,12 @@
 BUCKET_LOCATION=us
 BUCKET_CLASS=multi_regional
 
+USAGE="Usage: ./create_team_project.sh team-name user1@example.com user2@example.com ..."
+if [ "$#" -lt 2 ]; then
+  echo "$USAGE"
+  exit 1
+fi
+
 if [ -z ${ACCOUNT_ID+x} ]; then
   echo "ACCOUNT_ID must be set to a billing account id"
   exit 1
@@ -10,12 +16,6 @@ fi
 
 if [ -z ${EVENT_NAME+x} ]; then
   echo "EVENT_NAME must be set to the event name"
-  exit 1
-fi
-
-USAGE="Usage: ./create_team_project.sh team-name user1@example.com user2@example.com ..."
-if [ "$#" -lt 2 ]; then
-  echo "$USAGE"
   exit 1
 fi
 
