@@ -23,3 +23,9 @@ export SHARED_BUCKET=gs://<bucket>
 # View all projects linked to the hackathon.
 gcloud projects list --filter="labels.event=${EVENT_NAME}"
 ```
+
+## Colors
+
+In many cases, it is convenient to create a number of projects upfront and assign them to participants. The file `colors.txt` is a list of common color names that can be used to create project names e.g. by adding a prefix. They are a little more interesting than simply numbering projects.
+
+
